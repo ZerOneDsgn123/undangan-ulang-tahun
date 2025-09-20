@@ -1235,6 +1235,13 @@
   transform: scale(0.9);
 }
 
+.phone-frame {
+  /* Buat ruang di dalam frame supaya konten tidak nutup navbar */
+  padding-bottom: calc(92px + env(safe-area-inset-bottom, 0px)) !important;
+}
+
+
+
 /* Floating controls (play/volume) naik di atas navbar */
 .floating-controls,
 .floating-buttons {

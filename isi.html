@@ -2,7 +2,7 @@
 <html lang="id">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Undangan Digital Scroll</title>
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -1235,6 +1235,42 @@
   transform: scale(0.9);
 }
 
+/* ----------------- FORCE NAV VISIBLE ON MOBILE ----------------- */
+/* Pastikan ini ditempel paling bawah, override rule sebelumnya */
+
+.phone-frame {
+  /* Buat ruang di dalam frame supaya konten tidak nutup navbar */
+  padding-bottom: calc(92px + env(safe-area-inset-bottom, 0px)) !important;
+}
+
+/* Taruh navbar fixed ke viewport (selalu terlihat) */
+.bottom-nav {
+  position: fixed !important;
+  left: 0;
+  right: 0;
+  bottom: env(safe-area-inset-bottom, 0px);
+  height: 72px;
+  z-index: 2147483647 !important; /* paling atas */
+}
+
+/* Floating controls (play/volume) naik di atas navbar */
+.floating-controls,
+.floating-buttons {
+  position: fixed !important;
+  right: 16px;
+  bottom: calc(92px + env(safe-area-inset-bottom, 0px));
+  z-index: 2147483646 !important;
+}
+
+/* Pastikan dekorasi bawah tidak menimpa navbar;
+   geser sedikit ke atas dan jangan melebihi lebar layar */
+.frame-bottom-left,
+.frame-bottom-right {
+  bottom: calc(92px + env(safe-area-inset-bottom, 0px) - 12px) !important;
+  z-index: 6 !important;
+}
+
+
 /* Untuk layar lebar (laptop/desktop) */
 @media (min-width: 420px) {
   .floating-controls {
@@ -1276,18 +1312,6 @@
     padding: 8px 10px;
   }
      }
-
-      .bottom-nav {
-  position: absolute;
-  bottom: -1px; left: 0;
-  width: 100%;
-  background: #3498db;   /* biru */
-  display: flex;
-  justify-content: space-around;
-  align-items: center;
-  padding: 17px 0 25px;
-  z-index: 9999;
-}
 
     /* responsive tweak */
 @media (max-width:420px){

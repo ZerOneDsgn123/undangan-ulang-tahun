@@ -1236,9 +1236,13 @@
 } 
 
 .frame-img {
-  width: 390px;
-  height: auto;
-}
+    position: absolute;
+    width: 390px;
+    height: auto;
+    opacity: 0;
+    z-index: 1;
+    pointer-events: none;
+  }
 
 /* Untuk layar lebar (laptop/desktop) */
 @media (min-width: 420px) {
@@ -1286,6 +1290,59 @@
   .rsvp-modal-content { padding:16px; }
   .whatsapp-input select { flex: 0 0 30%; }
 }
+
+@media (max-width: 420px) {
+    /* biar frame bottom gak terlalu terpotong: (opsional) kamu bisa set visible,
+       tapi saya biarkan phone-frame overflow:hidden — dekorasi akan berada di dalam area */
+    /* .phone-frame { overflow: visible; }  <-- aktifkan jika mau dekorasi keluar frame */
+
+    /* Atur ukuran & posisi dekorasi bottom supaya lebih besar dan turun */
+    .section .frame-bottom-left,
+    .section .frame-bottom-right {
+      width: 760px !important;         /* lebih lebar dari default */
+      max-width: none !important;
+      height: auto !important;
+      bottom: 48px !important;         /* sedikit naik dari bawah frame (sesuaikan) */
+      /* geser keluar ke kiri/kanan agar terlihat besar di pinggir */
+      left: -220px !important;
+      right: -220px !important;
+      opacity: 1 !important;
+      pointer-events: none !important;
+      z-index: 999 !important;         /* pastikan di atas navbar */
+      transform: translateY(22px) scale(1.06) !important; /* turun sedikit dan sedikit membesar */
+      transform-origin: center bottom !important;
+      display: block !important;
+    }
+
+    /* Jika ingin variasi: biarkan kiri dan kanan punya offset berbeda */
+    .section .frame-bottom-left {
+      left: -260px !important;
+      transform-origin: left bottom !important;
+      transform: translateY(20px) scale(1.08) !important;
+    }
+    .section .frame-bottom-right {
+      right: -260px !important;
+      left: auto !important;
+      transform-origin: right bottom !important;
+      transform: translateY(20px) scale(1.08) !important;
+    }
+
+    /* Jangan sampai tombol mengambang menutupi dekorasi */
+    .floating-controls {
+      bottom: 120px !important;
+      right: 12px !important;
+      z-index: 1000 !important;
+    }
+
+    /* Jika navbar overlap, beri sedikit padding bawah ke konten agar tidak tertutup */
+    .phone-frame .section.active .acara-container,
+    .phone-frame .section.active .rsvp-container,
+    .phone-frame .section.active .maps-container,
+    .phone-frame .section.active .gift-container,
+    .phone-frame .section.active .thanks-container {
+      padding-bottom: 92px; /* sesuaikan bila navbar terlalu menutupi konten */
+    }
+  }
 
 </style>
 </head>

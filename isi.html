@@ -1246,6 +1246,7 @@
 
 
      @media (max-width: 420px) {
+      .phone-frame { height: 100vh; }
       .overlay h2 { font-size: 1.5rem; }
       .overlay h1 { font-size: 1.5rem; }
       #acara .frame-top-left { width: 350px; }
@@ -1275,6 +1276,18 @@
     padding: 8px 10px;
   }
      }
+
+      .bottom-nav {
+  position: absolute;
+  bottom: -1px; left: 0;
+  width: 100%;
+  background: #3498db;   /* biru */
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  padding: 17px 0 25px;
+  z-index: 9999;
+}
 
     /* responsive tweak */
 @media (max-width:420px){

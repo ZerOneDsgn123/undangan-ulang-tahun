@@ -1235,6 +1235,64 @@
   transform: scale(0.9);
 } 
 
+/* ===== REPLACE THIS: frame-img + responsive tweaks ===== */
+
+/* Frame umum (responsif) */
+.frame-img {
+  position: absolute;
+  width: 36%;            /* ukuran relatif ke phone-frame — responsif */
+  max-width: 420px;      /* batasi supaya tidak terlalu besar di desktop */
+  min-width: 120px;      /* jangan terlalu kecil di HP */
+  height: auto;
+  opacity: 0;            /* animasi slideFrom... akan ubah opacity -> 1 */
+  z-index: 1;
+  pointer-events: none;
+  user-select: none;
+}
+
+/* Bottom kiri & kanan: lebih lebar sehingga 'menonjol' di pinggir layar */
+.frame-bottom-left,
+.frame-bottom-right {
+  width: 56%;
+  max-width: 520px;
+  bottom: 60px;          /* tinggi dari bottom (tweak sesuai kebutuhan) */
+}
+
+.frame-bottom-left { left: -6%; z-index: 11; }
+.frame-bottom-right { right: -6%; z-index: 11; }
+
+/* ===== Responsif: layar kecil (HP) ===== */
+@media (max-width: 420px) {
+  .frame-img { width: 48%; max-width: 420px; min-width: 140px; }
+  .frame-bottom-left,
+  .frame-bottom-right {
+    width: 70%;
+    max-width: 520px;
+    bottom: 70px;
+  }
+  .frame-bottom-left { left: -12%; }
+  .frame-bottom-right { right: -12%; }
+
+  /* sesuaikan floating controls supaya tetap pas */
+  .floating-controls {
+    right: 16px;
+    bottom: 110px;
+  }
+}
+
+/* ===== Responsif: layar lebar (desktop) ===== */
+@media (min-width: 769px) {
+  .frame-img { width: 30%; max-width: 520px; }
+  .frame-bottom-left,
+  .frame-bottom-right {
+    width: 48%;
+    max-width: 600px;
+    bottom: 90px;
+  }
+  .frame-bottom-left { left: -8%; }
+  .frame-bottom-right { right: -8%; }
+}
+
 
 /* Untuk layar lebar (laptop/desktop) */
 @media (min-width: 420px) {
@@ -1285,22 +1343,6 @@
   .whatsapp-input select { flex: 0 0 30%; }
 }
 
-@media (max-width: 480px) {
-  .frame-bottom-left,
-  .frame-bottom-right {
-    width: 390vw !important;
-    max-width: 400px !important;
-  }
-}
-
-/* DESKTOP: sedikit lebih kecil relatif lebar layar */
-@media (min-width: 769px) {
-  .frame-bottom-left,
-  .frame-bottom-right {
-    width: 390vw !important;
-    max-width: 400px !important;
-  }
-}
 
 </style>
 </head>

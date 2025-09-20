@@ -247,10 +247,20 @@
   .overlay { margin-top: -40px;}
   .overlay h2 { font-size: 1.5rem; }
   .overlay h1 { font-size: 2.9rem; }
-  .frame-top-left { width: 370px; }
-  .frame-top-right { width: 370px; }
-  .frame-bottom-left { width: 450px; bottom: 1px; left: 0; }   /* Naik 60px */
-  .frame-bottom-right { width: 450px; bottom: 1px; right: 0; } /* Naik 60px */
+  .frame-top-left { width: 85%; }
+  .frame-top-right { width: 85%; }
+  .frame-bottom-left,
+.frame-bottom-right {
+  position: absolute;
+  bottom: 0;       /* bener2 nempel bawah */
+  left: 0;
+  right: 0;
+  width: 100%;     /* full selebar layar */
+  max-width: 100%;
+  height: auto;    /* jaga rasio */
+  transform: none; /* buang translateX biar pas */
+}
+
   .floating-buttons {
     bottom: 75px; /* biar tombol di atas dekorasi */
     right: 15px;

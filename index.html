@@ -191,7 +191,7 @@
     }
     .frame-top-left { top: -1px; left: -2px; }
     .frame-top-right { top: -1px; right: -2px; }
-    .frame-bottom-left { bottom: 1px; left: -2px; }
+    .frame-bottom-left { bottom: -2px; left: -2px; }
     .frame-bottom-right { bottom: -2px; right: -2px; }
 
     .show-top-left { animation: slideFromTopLeft 0.8s forwards; }
@@ -249,8 +249,12 @@
       .overlay h1 { font-size: 2.9rem; }
       .frame-top-left { width: 370px; }
       .frame-top-right { width: 370px; }
-      .frame-bottom-left { width: 370px; }
-      .frame-bottom-right { width: 370px; }
+      .frame-bottom-left { width: 440px; top: 205px; left: 0;}
+      .frame-bottom-right { width: 440px; top:205px; right:  0; }
+      .floating-buttons {
+    bottom: 60px;  /* naik lebih tinggi */
+    right: 15px;
+  }
     }
   </style>
 </head>

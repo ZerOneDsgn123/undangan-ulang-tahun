@@ -25,8 +25,8 @@
     /* FRAME HP */
     .phone-frame {
         background: #fff;
-        width: 500px;
-        max-width: 90vw;
+        width: 100%;
+        max-width: 500px;
         height: 100vh;
         box-shadow: 0 0 15px rgba(0,0,0,0.2);
         overflow: hidden;
@@ -1235,49 +1235,10 @@
   transform: scale(0.9);
 } 
 
-/* ===== FORCE: bottom frames (override terakhir) ===== */
-.section .frame-bottom-left,
-.section .frame-bottom-right {
-  display: block !important;
-  position: absolute !important;
-  width: calc(100% + 240px) !important; /* buat lebih lebar dari phone-frame */
-  max-width: none !important;
-  min-width: 360px !important;           /* jangan sampai jadi kecil */
-  height: auto !important;
-  bottom: 60px !important;               /* jarak dari bawah, tweak bila perlu */
-  opacity: 1 !important;
-  pointer-events: none !important;
-  z-index: 12 !important;
-  transform: none !important;
+.frame-img {
+  width: 390px;
+  height: auto;
 }
-
-/* keluar sedikit ke kiri / kanan supaya simetris */
-.section .frame-bottom-left { left: -120px !important; right: auto !important; }
-.section .frame-bottom-right { right: -120px !important; left: auto !important; }
-
-/* PASTIKAN gambar di dalam juga tidak dibatasi */
-.section .frame-bottom-left,
-.section .frame-bottom-right,
-.section .frame-bottom-left img,
-.section .frame-bottom-right img {
-  width: 100% !important;
-  max-width: none !important;
-  height: auto !important;
-  display: block !important;
-}
-
-/* MOBILE ADJUST */
-@media (max-width: 420px) {
-  .section .frame-bottom-left,
-  .section .frame-bottom-right {
-    width: calc(100% + 360px) !important;
-    min-width: 420px !important;
-    bottom: 72px !important;
-    left: -180px !important;   /* override posisi supaya terlihat besar di HP */
-    right: -180px !important;
-  }
-}
-
 
 /* Untuk layar lebar (laptop/desktop) */
 @media (min-width: 420px) {
@@ -1288,9 +1249,7 @@
   }
 }
 
-
      @media (max-width: 420px) {
-      .phone-frame { height: 100vh; }
       .overlay h2 { font-size: 1.5rem; }
       .overlay h1 { font-size: 1.5rem; }
        .rsvp-avatar { width: 190px; height: 190px; border-width:5px; }
@@ -1999,36 +1958,6 @@ volumeBtn.addEventListener("click", () => {
     ? `<i class="fas fa-volume-up"></i>` 
     : `<i class="fas fa-volume-mute"></i>`;
   isMuted = !isMuted;
-});
-
-document.addEventListener('DOMContentLoaded', function(){
-  function adjustBottomFrames(){
-    var phone = document.querySelector('.phone-frame');
-    if(!phone) return;
-    var phoneW = phone.clientWidth;
-    // multiplier lebih besar di layar kecil
-    var multiplier = (window.innerWidth <= 420) ? 1.8 : 1.4;
-    var targetW = Math.max(360, Math.round(phoneW * multiplier));
-    var offset = Math.round((targetW - phoneW) / 2);
-
-    document.querySelectorAll('.section .frame-bottom-left, .section .frame-bottom-right').forEach(el=>{
-      el.style.width = targetW + 'px';
-      el.style.maxWidth = 'none';
-      el.style.minWidth = '360px';
-      el.style.bottom = '60px';
-      if(el.classList.contains('frame-bottom-left')){
-        el.style.left = '-' + offset + 'px';
-        el.style.right = 'auto';
-      } else {
-        el.style.right = '-' + offset + 'px';
-        el.style.left = 'auto';
-      }
-      el.style.opacity = '1';
-    });
-  }
-
-  window.addEventListener('resize', adjustBottomFrames);
-  adjustBottomFrames();
 });
 
 if (performance.getEntriesByType("navigation")[0].type === "reload") { window.location.href = "home.html"; }

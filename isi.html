@@ -1283,9 +1283,9 @@
 /* Geser dekorasi bawah agar tidak menimpa navbar */
 .frame-bottom-left,
 .frame-bottom-right {
-  bottom: calc(72px + env(safe-area-inset-bottom, 0px) + 6px) !important;
-  max-width: 46% !important;
-  z-index: 10 !important;
+  bottom: calc(-5px + env(safe-area-inset-bottom, 0px) + 6px) !important;
+  max-width: 90% !important;
+  z-index: 100 !important;
 }
 
 /* optional: pastikan phone-frame tidak muncul sebagai background putih
@@ -2020,9 +2020,7 @@ volumeBtn.addEventListener("click", () => {
   isMuted = !isMuted;
 });
 
-
 if (performance.getEntriesByType("navigation")[0].type === "reload") { window.location.href = "home.html"; }
-
 </script>
 </body>
 </html>

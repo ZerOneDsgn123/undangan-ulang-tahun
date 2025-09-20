@@ -1235,62 +1235,47 @@
   transform: scale(0.9);
 } 
 
-/* ===== REPLACE THIS: frame-img + responsive tweaks ===== */
-
-/* Frame umum (responsif) */
-.frame-img {
-  position: absolute;
-  width: 36%;            /* ukuran relatif ke phone-frame — responsif */
-  max-width: 420px;      /* batasi supaya tidak terlalu besar di desktop */
-  min-width: 120px;      /* jangan terlalu kecil di HP */
-  height: auto;
-  opacity: 0;            /* animasi slideFrom... akan ubah opacity -> 1 */
-  z-index: 1;
-  pointer-events: none;
-  user-select: none;
+/* ===== FORCE: bottom frames (override terakhir) ===== */
+.section .frame-bottom-left,
+.section .frame-bottom-right {
+  display: block !important;
+  position: absolute !important;
+  width: calc(100% + 240px) !important; /* buat lebih lebar dari phone-frame */
+  max-width: none !important;
+  min-width: 360px !important;           /* jangan sampai jadi kecil */
+  height: auto !important;
+  bottom: 60px !important;               /* jarak dari bawah, tweak bila perlu */
+  opacity: 1 !important;
+  pointer-events: none !important;
+  z-index: 12 !important;
+  transform: none !important;
 }
 
-/* Bottom kiri & kanan: lebih lebar sehingga 'menonjol' di pinggir layar */
-.frame-bottom-left,
-.frame-bottom-right {
-  width: 56%;
-  max-width: 520px;
-  bottom: 60px;          /* tinggi dari bottom (tweak sesuai kebutuhan) */
+/* keluar sedikit ke kiri / kanan supaya simetris */
+.section .frame-bottom-left { left: -120px !important; right: auto !important; }
+.section .frame-bottom-right { right: -120px !important; left: auto !important; }
+
+/* PASTIKAN gambar di dalam juga tidak dibatasi */
+.section .frame-bottom-left,
+.section .frame-bottom-right,
+.section .frame-bottom-left img,
+.section .frame-bottom-right img {
+  width: 100% !important;
+  max-width: none !important;
+  height: auto !important;
+  display: block !important;
 }
 
-.frame-bottom-left { left: -6%; z-index: 11; }
-.frame-bottom-right { right: -6%; z-index: 11; }
-
-/* ===== Responsif: layar kecil (HP) ===== */
+/* MOBILE ADJUST */
 @media (max-width: 420px) {
-  .frame-img { width: 48%; max-width: 420px; min-width: 140px; }
-  .frame-bottom-left,
-  .frame-bottom-right {
-    width: 70%;
-    max-width: 520px;
-    bottom: 70px;
+  .section .frame-bottom-left,
+  .section .frame-bottom-right {
+    width: calc(100% + 360px) !important;
+    min-width: 420px !important;
+    bottom: 72px !important;
+    left: -180px !important;   /* override posisi supaya terlihat besar di HP */
+    right: -180px !important;
   }
-  .frame-bottom-left { left: -12%; }
-  .frame-bottom-right { right: -12%; }
-
-  /* sesuaikan floating controls supaya tetap pas */
-  .floating-controls {
-    right: 16px;
-    bottom: 110px;
-  }
-}
-
-/* ===== Responsif: layar lebar (desktop) ===== */
-@media (min-width: 769px) {
-  .frame-img { width: 30%; max-width: 520px; }
-  .frame-bottom-left,
-  .frame-bottom-right {
-    width: 48%;
-    max-width: 600px;
-    bottom: 90px;
-  }
-  .frame-bottom-left { left: -8%; }
-  .frame-bottom-right { right: -8%; }
 }
 
 
@@ -1342,7 +1327,6 @@
   .rsvp-modal-content { padding:16px; }
   .whatsapp-input select { flex: 0 0 30%; }
 }
-
 
 </style>
 </head>
@@ -2015,6 +1999,36 @@ volumeBtn.addEventListener("click", () => {
     ? `<i class="fas fa-volume-up"></i>` 
     : `<i class="fas fa-volume-mute"></i>`;
   isMuted = !isMuted;
+});
+
+document.addEventListener('DOMContentLoaded', function(){
+  function adjustBottomFrames(){
+    var phone = document.querySelector('.phone-frame');
+    if(!phone) return;
+    var phoneW = phone.clientWidth;
+    // multiplier lebih besar di layar kecil
+    var multiplier = (window.innerWidth <= 420) ? 1.8 : 1.4;
+    var targetW = Math.max(360, Math.round(phoneW * multiplier));
+    var offset = Math.round((targetW - phoneW) / 2);
+
+    document.querySelectorAll('.section .frame-bottom-left, .section .frame-bottom-right').forEach(el=>{
+      el.style.width = targetW + 'px';
+      el.style.maxWidth = 'none';
+      el.style.minWidth = '360px';
+      el.style.bottom = '60px';
+      if(el.classList.contains('frame-bottom-left')){
+        el.style.left = '-' + offset + 'px';
+        el.style.right = 'auto';
+      } else {
+        el.style.right = '-' + offset + 'px';
+        el.style.left = 'auto';
+      }
+      el.style.opacity = '1';
+    });
+  }
+
+  window.addEventListener('resize', adjustBottomFrames);
+  adjustBottomFrames();
 });
 
 if (performance.getEntriesByType("navigation")[0].type === "reload") { window.location.href = "home.html"; }

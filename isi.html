@@ -1235,29 +1235,63 @@
   transform: scale(0.9);
 }
 
+/* ------------------- FIXED NAVBAR & SAFE AREA ------------------- */
+/* paste ini paling bawah style.css / <style> */
+
 .phone-frame {
-  /* Buat ruang di dalam frame supaya konten tidak nutup navbar */
-  padding-bottom: calc(92px + env(safe-area-inset-bottom, 0px)) !important;
+  /* beri ruang supaya konten tidak ketutup navbar */
+  padding-bottom: calc(72px + env(safe-area-inset-bottom, 0px)) !important;
 }
 
+/* Taruh navbar fixed di viewport (di tengah phone-frame) */
+.bottom-nav {
+  position: fixed !important;
+  left: 50%;
+  transform: translateX(-50%);
+  bottom: env(safe-area-inset-bottom, 0px);
+  width: min(500px, 100%);   /* lebar sama dengan phone-frame */
+  max-width: 500px;
+  height: 72px;
+  padding: 10px 0;
+  z-index: 99999 !important; /* pastikan di atas semua */
+  background: #3498db;       /* tetap sama seperti sebelumnya */
+  box-shadow: 0 -4px 12px rgba(0,0,0,0.15);
+}
 
+/* Jika ada garis putih kecil di atas navbar karena content,
+   paksa navbar menutupi sedikit dari atas */
+.bottom-nav::before{
+  content: "";
+  position: absolute;
+  top: -6px;
+  left: 0;
+  right: 0;
+  height: 6px;
+  background: #3498db;
+  display: block;
+}
 
-/* Floating controls (play/volume) naik di atas navbar */
+/* Floating controls (naik di atas navbar) */
 .floating-controls,
 .floating-buttons {
   position: fixed !important;
   right: 16px;
-  bottom: calc(92px + env(safe-area-inset-bottom, 0px));
-  z-index: 2147483646 !important;
+  bottom: calc(72px + env(safe-area-inset-bottom, 0px) + 12px);
+  z-index: 99998 !important;
 }
 
-/* Pastikan dekorasi bawah tidak menimpa navbar;
-   geser sedikit ke atas dan jangan melebihi lebar layar */
+/* Geser dekorasi bawah agar tidak menimpa navbar */
 .frame-bottom-left,
 .frame-bottom-right {
-  bottom: calc(92px + env(safe-area-inset-bottom, 0px) - 12px) !important;
-  z-index: 6 !important;
+  bottom: calc(72px + env(safe-area-inset-bottom, 0px) + 6px) !important;
+  max-width: 46% !important;
+  z-index: 10 !important;
 }
+
+/* optional: pastikan phone-frame tidak muncul sebagai background putih
+   di area bawah (jika tetap muncul, ubah jadi transparent) */
+/* .phone-frame { background: transparent; } */
+
 
 
 /* Untuk layar lebar (laptop/desktop) */

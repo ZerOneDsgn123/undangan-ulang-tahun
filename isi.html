@@ -1235,24 +1235,6 @@
   transform: scale(0.9);
 }
 
-/* ----------------- FORCE NAV VISIBLE ON MOBILE ----------------- */
-/* Pastikan ini ditempel paling bawah, override rule sebelumnya */
-
-.phone-frame {
-  /* Buat ruang di dalam frame supaya konten tidak nutup navbar */
-  padding-bottom: calc(92px + env(safe-area-inset-bottom, 0px)) !important;
-}
-
-/* Taruh navbar fixed ke viewport (selalu terlihat) */
-.bottom-nav {
-  position: fixed !important;
-  left: 0;
-  right: 0;
-  bottom: env(safe-area-inset-bottom, 0px);
-  height: 72px;
-  z-index: 2147483647 !important; /* paling atas */
-}
-
 /* Floating controls (play/volume) naik di atas navbar */
 .floating-controls,
 .floating-buttons {
